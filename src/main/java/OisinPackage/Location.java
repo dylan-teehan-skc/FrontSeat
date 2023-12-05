@@ -1,3 +1,5 @@
+package OisinPackage;
+
 import java.util.Scanner;
 
 public class Location extends Map {

@@ -1,3 +1,5 @@
+package OisinPackage;
+
 class Map {
     private static String[][] taximap;
 
