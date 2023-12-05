@@ -1,5 +1,5 @@
-package MapAndTaxis;
-
-enum Direction {
-    UP, DOWN, LEFT, RIGHT
-}
+//package MapAndTaxis;
+//
+//enum Direction {
+//    UP, DOWN, LEFT, RIGHT
+//}

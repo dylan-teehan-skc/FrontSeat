@@ -116,7 +116,7 @@ public class TaxiMap2 {
         int playerYCoord = playerY;
 
         // Check if the player is in the 2-block square around the taxi
-        boolean playerNearby = Math.abs(taxiXCoord - playerXCoord) <= 1 && Math.abs(taxiYCoord - playerYCoord) <= 1;
+        boolean playerNearby = Math.abs(taxiXCoord - playerXCoord) <= 2 && Math.abs(taxiYCoord - playerYCoord) <= 2;
 
         // Print the result
         if (playerNearby) {
