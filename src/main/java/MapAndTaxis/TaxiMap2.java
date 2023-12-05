@@ -145,7 +145,7 @@ public class TaxiMap2 {
     // Clear the console (print empty lines)
     public static void clearConsole() {
         for (int i = 0; i < 50; i++) {
-            System.out.println(); // Print empty lines
+            System.out.println(); // Print empty liness
         }
     }
 }
