@@ -1,5 +1,8 @@
 package OisinPackage;
 
+import MapAndTaxis.TaxiMap2;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Location extends Map {
@@ -21,6 +24,13 @@ public class Location extends Map {
         }
 
         if (found) {
+            try {
+                TaxiMap2.RunMap();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("A taxi is coming to you now at " + location);
         } else {
             System.out.println("Your destination doesn't exist");

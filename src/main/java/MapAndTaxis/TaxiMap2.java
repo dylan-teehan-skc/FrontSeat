@@ -15,7 +15,7 @@ public class TaxiMap2 {
     private static String[] taxiNames = {"Taxi1", "Taxi2", "Taxi3", "Taxi4", "Taxi5"};
     private static String[][] map = new String[mapSize][mapSize];
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void RunMap() throws InterruptedException, IOException {
         initialiseMap();
         moveTaxis();
     }
