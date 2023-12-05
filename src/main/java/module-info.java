@@ -4,5 +4,5 @@ module com.example.frontseat {
 
 
     opens com.example.frontseat to javafx.fxml;
-    exports com.example.frontseat;
+    exports OisinPackage;
 }

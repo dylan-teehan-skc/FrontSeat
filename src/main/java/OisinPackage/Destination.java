@@ -1,5 +1,6 @@
 package OisinPackage;
 
+
 import java.util.Scanner;
 
 public class Destination extends Map {
