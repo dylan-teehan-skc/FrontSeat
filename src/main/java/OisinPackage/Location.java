@@ -1,6 +1,6 @@
 package OisinPackage;
 
-import MapAndTaxis.TaxiMap2;
+import MapAndTaxis.TaxiMap;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -22,16 +22,28 @@ public class Location extends Map {
                     found = true;
             }
         }
+        TaxiMap player = new TaxiMap();
+        if (location.equals("Kilmurry")){
+            player.setPlayerX(1);
+            player.setPlayerY(3);
+        }
+        else if (location.equals("Plassey")){
+            player.setPlayerX(3);
+            player.setPlayerY(5);
+        }
 
         if (found) {
             try {
-                TaxiMap2.RunMap();
+                System.out.println("A taxi is coming to you now at " + location);
+                // Sleep for 2 seconds
+                Thread.sleep(2000);
+                TaxiMap.RunMap();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("A taxi is coming to you now at " + location);
+
         } else {
             System.out.println("Your destination doesn't exist");
         }

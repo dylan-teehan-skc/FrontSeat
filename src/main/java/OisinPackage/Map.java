@@ -9,7 +9,7 @@ class Map {
 
     public static void createMap() {
         taximap = new String[][] {
-                {"Killmurry", "Dromrow", "Cappavilla"},
+                {"Kilmurry", "Dromroe", "Cappavilla"},
                 {"Plassey", "Thomond", "College Court"}
         };
     }

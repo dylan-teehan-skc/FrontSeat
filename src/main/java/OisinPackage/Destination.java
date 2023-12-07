@@ -2,6 +2,8 @@ package OisinPackage;
 
 import java.util.Scanner;
 
+import static MapAndTaxis.Car.taxiJourney;
+
 public class Destination extends Map {
 
     public static void main(String[] args) {
@@ -10,7 +12,6 @@ public class Destination extends Map {
 
     public Destination() {
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Where do you want to go?");
         String destination = scanner.nextLine();
         boolean found = false;
