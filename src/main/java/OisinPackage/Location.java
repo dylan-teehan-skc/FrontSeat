@@ -5,6 +5,8 @@ import MapAndTaxis.TaxiMap;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static MapAndTaxis.Car.taxiJourney;
+
 public class Location extends Map {
 
     public void RunLocation() {
@@ -23,11 +25,10 @@ public class Location extends Map {
             }
         }
         TaxiMap player = new TaxiMap();
-        if (location.equals("Kilmurry")){
+        if (location.equals("Kilmurry")) {
             player.setPlayerX(1);
             player.setPlayerY(3);
-        }
-        else if (location.equals("Plassey")){
+        } else if (location.equals("Plassey")) {
             player.setPlayerX(3);
             player.setPlayerY(5);
         }
@@ -47,9 +48,11 @@ public class Location extends Map {
         } else {
             System.out.println("Your destination doesn't exist");
         }
+
+        taxiJourney();
         Review startReview = new Review();
         startReview.GiveReview();
     }
-
-
 }
+
+
