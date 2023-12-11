@@ -60,12 +60,6 @@ public class TaxiMap {
 
         // Place the player on the map
         map[playerX][playerY] = "P";
-//        map[1][1] = "A";
-//        map[1][5] = "B";
-//        map[3][1] = "C";
-//        map[3][5] = "D";
-//        map[5][1] = "E";
-//        map[5][5] = "F";
 
         // Initialize taxi positions
         Random random = new Random();
@@ -168,7 +162,6 @@ public class TaxiMap {
     }
 
     public static void taxiGoToPlayer() throws InterruptedException {
-        Random random = new Random();
         boolean taxiArrived = false;
 
         for (int i = 0; i < 10 && !taxiArrived; i++) {
