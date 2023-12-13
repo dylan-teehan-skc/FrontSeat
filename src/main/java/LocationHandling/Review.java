@@ -1,7 +1,6 @@
-package OisinPackage;
+package LocationHandling;
 
 import java.util.Scanner;
-import static MapAndTaxis.Car.taxiJourney;
 
 public class Review {
 

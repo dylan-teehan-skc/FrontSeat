@@ -1,4 +1,4 @@
-package OisinPackage;
+package LocationHandling;
 
 class Map {
     private static String[][] taximap;

@@ -1,4 +1,4 @@
-package OisinPackage;
+package LocationHandling;
 
 import java.util.Scanner;
 

@@ -1,11 +1,12 @@
-package OisinPackage;
+package LocationHandling;
 
 import MapAndTaxis.TaxiMap;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import static MapAndTaxis.Car.taxiJourney;
+import static MapAndTaxis.User.setPlayerX;
+import static MapAndTaxis.User.setPlayerY;
 
 public class Location extends Map {
 
@@ -26,11 +27,11 @@ public class Location extends Map {
         }
         TaxiMap player = new TaxiMap();
         if (location.equals("Kilmurry")) {
-            player.setPlayerX(1);
-            player.setPlayerY(3);
+            setPlayerX(1);
+            setPlayerY(3);
         } else if (location.equals("Plassey")) {
-            player.setPlayerX(3);
-            player.setPlayerY(5);
+            setPlayerX(3);
+            setPlayerY(5);
         }
 
         if (found) {
@@ -48,10 +49,6 @@ public class Location extends Map {
         } else {
             System.out.println("Your destination doesn't exist");
         }
-
-        taxiJourney();
-        Review startReview = new Review();
-        startReview.GiveReview();
     }
 }
 

@@ -1,52 +1,91 @@
 package MapAndTaxis;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
-
-import static MapAndTaxis.Car.taxiJourney;
+import static MapAndTaxis.TaxiDriving.taxiGoToDestination;
+import static MapAndTaxis.TaxiDriving.taxiGoToPlayer;
+import static MapAndTaxis.User.*;
 
 public class TaxiMap {
-    private static int mapSize = 7;
-    private static int numTaxis = 5;
-    private static int playerX;
-    private static int playerY;
-    private static int[] taxiX = new int[numTaxis];
-    private static int[] taxiY = new int[numTaxis];
+    public static int mapSize = 7;
+    private static int numTaxis;
+    public static int[] taxiX = new int[numTaxis];
+    public static int[] taxiY = new int[numTaxis];
     private static TaxiDriver[] taxiDrivers = new TaxiDriver[numTaxis];
     private static String[] taxiNames = new String[numTaxis];
     private static String[] taxiTypes = new String[numTaxis];
 
-    static {
-        taxiDrivers[0] = new TaxiDriver("Jon", "212-D-423", 8, "Delux");
-        taxiDrivers[1] = new TaxiDriver("Alice", "123-A-456", 7, "Standard");
-        taxiDrivers[2] = new TaxiDriver("Bob", "456-B-789", 9, "Accessable");
-        taxiDrivers[3] = new TaxiDriver("Charlie", "789-C-012", 6, "Standard");
-        taxiDrivers[4] = new TaxiDriver("David", "012-D-345", 8, "Standard");
 
+    static {
+        try {
+            String csvFilePath = "C:/Users/dylan/MyRepos/FrontSeat/TaxiDrivers.csv";
+
+            // Use FileReader and BufferedReader to read the CSV file
+            try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+                // Skip the header line if it exists
+                reader.readLine();
+
+                // Count the number of lines in the CSV file
+                numTaxis = (int) reader.lines().count();
+
+                // Initialize arrays with dynamic size
+                taxiX = new int[(int) numTaxis];
+                taxiY = new int[(int) numTaxis];
+                taxiDrivers = new TaxiDriver[(int) numTaxis];
+                taxiNames = new String[(int) numTaxis];
+                taxiTypes = new String[(int) numTaxis];
+
+                // Rewind the reader to read data lines again
+                reader.close();
+
+                // Create a new BufferedReader for reading data lines
+                BufferedReader dataReader = new BufferedReader(new FileReader(csvFilePath));
+                dataReader.readLine(); // Skip the header line
+
+                int index = 0;
+
+                // Read data lines and populate arrays
+                String line;
+                while ((line = dataReader.readLine()) != null && index < numTaxis) {
+                    String[] nextRecord = line.split(",");
+
+                    String name = nextRecord[0].trim();
+                    String licensePlate = nextRecord[1].trim();
+                    int rating = Integer.parseInt(nextRecord[2].trim());
+                    String carType = nextRecord[3].trim();
+
+                    taxiDrivers[index] = new TaxiDriver(name, licensePlate, rating, carType);
+                    taxiNames[index] = name;
+                    taxiTypes[index] = carType;
+
+                    index++;
+                }
+
+                // Close the dataReader
+                dataReader.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Move this loop inside the static block
         for (int i = 0; i < numTaxis; i++) {
             taxiNames[i] = taxiDrivers[i].getName();
             taxiTypes[i] = taxiDrivers[i].getCarType();
         }
     }
-    private static String[][] map = new String[mapSize][mapSize];
 
-    public void setPlayerLocation(int playerX, int playerY){
-        this.playerX = playerX;
-        this.playerY = playerY;
-    }
 
-    public void setPlayerX(int playerX) {
-        this.playerX = playerX;
-    }
+    public static String[][] map = new String[mapSize][mapSize];
 
-    public void setPlayerY(int playerY) {
-        this.playerY = playerY;
-    }
 
     public static void RunMap() throws InterruptedException, IOException {
         initialiseMap();
         moveTaxis();
         taxiGoToPlayer();
+        taxiGoToDestination(6,6);
     }
 
     public static void initialiseMap() {
@@ -59,7 +98,7 @@ public class TaxiMap {
         }
 
         // Place the player on the map
-        map[playerX][playerY] = "P";
+        map[getPlayerX()][getPlayerY()] = "P";
 
         // Initialize taxi positions
         Random random = new Random();
@@ -68,7 +107,7 @@ public class TaxiMap {
             do {
                 x = random.nextInt(mapSize);
                 y = random.nextInt(mapSize);
-            } while (map[x][y].equals("T") || map[x][y].equals("P")); // Ensure a taxi doesn't overlap with player or other taxis
+            } while (map[x][y].equals("T") || map[x][y].equals("P") || (x == getPlayerX() && y == getPlayerY())); // Ensure a taxi doesn't overlap with player or other taxis
 
             taxiX[i] = x;
             taxiY[i] = y;
@@ -129,7 +168,7 @@ public class TaxiMap {
             }
 
             // Update the player's position
-            map[playerX][playerY] = "P";
+            map[getPlayerX()][getPlayerY()] = "P";
 
             printMap(map);
 
@@ -161,66 +200,13 @@ public class TaxiMap {
         }
     }
 
-    public static void taxiGoToPlayer() throws InterruptedException {
-        boolean taxiArrived = false;
-
-        for (int i = 0; i < 10 && !taxiArrived; i++) {
-            // Clear the console (print empty lines)
-            clearConsole();
-
-            int closestTaxiIndex = findClosestTaxi();
-
-            // Move the closest taxi towards the player
-            int playerXCoord = playerX;
-            int playerYCoord = playerY;
-            int taxiXCoord = taxiX[closestTaxiIndex];
-            int taxiYCoord = taxiY[closestTaxiIndex];
-
-            int newX, newY;
-
-            if (taxiXCoord < playerXCoord) {
-                newX = taxiXCoord + 1;
-            } else if (taxiXCoord > playerXCoord) {
-                newX = taxiXCoord - 1;
-            } else {
-                newX = taxiXCoord;
-            }
-
-            if (taxiYCoord < playerYCoord) {
-                newY = taxiYCoord + 1;
-            } else if (taxiYCoord > playerYCoord) {
-                newY = taxiYCoord - 1;
-            } else {
-                newY = taxiYCoord;
-            }
-
-            // Check boundaries to prevent going out of the map
-            newX = Math.max(0, Math.min(newX, mapSize - 1));
-            newY = Math.max(0, Math.min(newY, mapSize - 1));
-
-            // Update the taxi position
-            map[taxiX[closestTaxiIndex]][taxiY[closestTaxiIndex]] = "-";
-            taxiX[closestTaxiIndex] = newX;
-            taxiY[closestTaxiIndex] = newY;
-            map[newX][newY] = "T";
-
-            // Check for nearby taxis
-            taxiArrived = checkIfTaxiArrived(closestTaxiIndex);
-
-            // Print the map
-            printMap(map);
-
-            // Sleep for 2 seconds
-            Thread.sleep(2000);
-        }
-    }
 
     public static boolean checkIfTaxiArrived(int taxiIndex) {
         int taxiXCoord = taxiX[taxiIndex];
         int taxiYCoord = taxiY[taxiIndex];
 
-        int playerXCoord = playerX;
-        int playerYCoord = playerY;
+        int playerXCoord = getPlayerX();
+        int playerYCoord = getPlayerY();
 
         // Check if the player is in the same block as the taxi
         boolean taxiHere = (taxiXCoord == playerXCoord) && (taxiYCoord == playerYCoord);
@@ -229,6 +215,7 @@ public class TaxiMap {
         if (taxiHere) {
             System.out.println(taxiNames[taxiIndex] + " in a " + taxiTypes[taxiIndex] + " taxi has arrived");
             return true;  // Taxi has arrived, set the flag to true
+
         } else {
             //System.out.println(taxiNames[taxiIndex] + " is not at the player's location yet.");
             return false;  // Taxi hasn't arrived
@@ -240,7 +227,7 @@ public class TaxiMap {
         double minDistance = Double.MAX_VALUE;
 
         for (int j = 0; j < numTaxis; j++) {
-            double distance = Math.sqrt(Math.pow(playerX - taxiX[j], 2) + Math.pow(playerY - taxiY[j], 2));
+            double distance = Math.sqrt(Math.pow(getPlayerX()- taxiX[j], 2) + Math.pow(getPlayerY() - taxiY[j], 2));
 
             if (distance < minDistance) {
                 minDistance = distance;

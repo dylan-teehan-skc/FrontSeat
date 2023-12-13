@@ -1,6 +1,6 @@
 package MapAndTaxis;
 
-import OisinPackage.Location;
+import LocationHandling.Location;
 
 import java.util.List;
 
