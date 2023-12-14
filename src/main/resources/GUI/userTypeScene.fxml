@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="552.0" fitWidth="560.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../TaxiApp/loginChoiceBackground.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="driverButton" layoutX="102.0" layoutY="388.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="DRIVER">
+         <font>
+            <Font name="Cambria Bold" size="29.0" />
+         </font>
+      </Button>
+      <Button fx:id="riderButton" layoutX="102.0" layoutY="292.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="RIDER">
+         <font>
+            <Font name="Cambria Bold" size="29.0" />
+         </font>
+      </Button>
+      <Text layoutX="188.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in securely as a" wrappingWidth="169.75708770751953">
+         <font>
+            <Font name="Goudy Old Style Bold" size="21.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
