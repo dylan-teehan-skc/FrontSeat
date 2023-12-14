@@ -1,24 +1,33 @@
-/*package OisinPackage;
+package LocationHandling;
+
+import MapAndTaxis.TaxiDriving;
 
 public class Payment {
-    private int currentBalance = 20;
+    private int currentBalance = 50;
     private int taxiFee;
 
-    public void calculatePayment(TaxiMap taxiMap) {
-        int initialX = taxiMap.getPlayerX();
-        int initialY = taxiMap.getPlayerY();
-        int finalX = taxiMap.getPlayerFinalX();
-        int finalY = taxiMap.getPlayerFinalY();
+    public void proccessPayment(TaxiDriving taxi){
 
-        int distance = Math.abs(finalX - initialX) + Math.abs(finalY - initialY);
-        taxiFee = distance * 2;
+
+
+
+    double distance = taxi.getDistance();
+        System.out.println("You traveled"+  distance + "km");
+
+    taxiFee = (int)(distance * 2.5);
+        System.out.println("Your taxi fee is "+ taxiFee);
+    updateBalance();
+
+}
+
+private void updateBalance(){
         currentBalance -= taxiFee;
+    System.out.println("Payment processed. Current Balance: "+ currentBalance);
+    Review startReview = new Review();
+    startReview.GiveReview();
 
-        System.out.println("You traveled " + distance + " blocks. The total taxi fee is: $" + taxiFee);
-        System.out.println("Current Balance: $" + currentBalance);
-    }
 
-    public int getCurrentBalance() {
-        return currentBalance;
     }
-}*/
+}
+
+

@@ -10,16 +10,12 @@ public class TaxiDriving {
 
     private double distance;
 
-    public void Distance(double distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
     public double getDistance() {
         return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
     }
 
     public static void taxiGoToPlayer() throws InterruptedException {
@@ -80,10 +76,11 @@ public class TaxiDriving {
     public static void taxiGoToDestination(int destinationX, int destinationY) throws InterruptedException {
         taxiJourney();
         double distance = Math.sqrt(Math.pow(getPlayerX() - destinationX, 2) + Math.pow(getPlayerY() - destinationY, 2));
+
+        // Use the setDistance method to set the distance
         TaxiDriving distanceObject = new TaxiDriving();
-        // Call the setDistance method on the instance
         distanceObject.setDistance(distance);
-        //System.out.println("distance is " + distance);
+
         int closestTaxiIndex = findClosestTaxi();
         boolean taxiArrived = false;
         boolean repeat = true;
@@ -117,7 +114,8 @@ public class TaxiDriving {
             if (taxiXCoord == destinationX && taxiYCoord == destinationY) {
                 taxiArrived = true;
                 System.out.println("You have reached your destination");
-                System.out.println("You travelled " + distance);
+                LocationHandling.Payment startPayment = new  LocationHandling.Payment();
+                startPayment.proccessPayment(distanceObject);
 
                 repeat = false; // Exit the loop when the destination is reached
             } else {
@@ -130,9 +128,5 @@ public class TaxiDriving {
 
         // Update the map one last time after reaching the destination
         map[taxiX[closestTaxiIndex]][taxiY[closestTaxiIndex]] = "T";
-        GiveReview();
-
     }
-
-
 }
