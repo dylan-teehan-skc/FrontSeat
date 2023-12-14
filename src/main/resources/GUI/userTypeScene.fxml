@@ -7,24 +7,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UserTypeScene">
    <children>
-      <ImageView fitHeight="552.0" fitWidth="560.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="648.0" fitWidth="641.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../TaxiApp/loginChoiceBackground.png" />
+            <Image url="@loginChoiceBackground.png" />
          </image>
       </ImageView>
-      <Button fx:id="driverButton" layoutX="102.0" layoutY="388.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="DRIVER">
+      <Button fx:id="driverButton" layoutX="148.0" layoutY="382.0" mnemonicParsing="false" onAction="#openDriverLoginScene" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="DRIVER">
          <font>
             <Font name="Cambria Bold" size="29.0" />
          </font>
       </Button>
-      <Button fx:id="riderButton" layoutX="102.0" layoutY="292.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="RIDER">
+      <Button fx:id="riderButton" layoutX="148.0" layoutY="300.0" mnemonicParsing="false" onAction="#PrintHello" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="RIDER">
          <font>
             <Font name="Cambria Bold" size="29.0" />
          </font>
       </Button>
-      <Text layoutX="188.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in securely as a" wrappingWidth="169.75708770751953">
+      <Text layoutX="225.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in securely as a" wrappingWidth="169.75708770751953">
          <font>
             <Font name="Goudy Old Style Bold" size="21.0" />
          </font>

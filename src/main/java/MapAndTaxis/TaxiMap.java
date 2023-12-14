@@ -20,7 +20,7 @@ public class TaxiMap {
 
     static {
         try {
-            String csvFilePath = "C:/Users/dylan/MyRepos/FrontSeat/TaxiDrivers.csv";
+            String csvFilePath = "TaxiDrivers.csv";
 
             // Use FileReader and BufferedReader to read the CSV file
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
@@ -74,6 +74,18 @@ public class TaxiMap {
         for (int i = 0; i < numTaxis; i++) {
             taxiNames[i] = taxiDrivers[i].getName();
             taxiTypes[i] = taxiDrivers[i].getCarType();
+            printAllTaxiDrivers();
+        }
+    }
+
+    public static void printAllTaxiDrivers() {
+        for (int i = 0; i < numTaxis; i++) {
+            System.out.println("Taxi Driver " + (i + 1) + " Details:");
+            System.out.println("Name: " + taxiDrivers[i].getName());
+            System.out.println("License Plate: " + taxiDrivers[i].getReg());
+            System.out.println("Rating: " + taxiDrivers[i].getRating());
+            System.out.println("Car Type: " + taxiDrivers[i].getCarType());
+            System.out.println();
         }
     }
 
@@ -195,7 +207,7 @@ public class TaxiMap {
 
     // Clear the console (print empty lines)
     public static void clearConsole() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.println(); // Print empty lines
         }
     }

@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 // Main class for starting the login application
-public class LoginMain extends Application {
+public class LoginScene extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginMain.class.getResource("driverLogin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginScene.class.getResource("driverLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 674, 438);
         stage.setTitle("Login");
         stage.setScene(scene);
