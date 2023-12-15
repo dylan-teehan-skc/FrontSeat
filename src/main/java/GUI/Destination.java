@@ -5,7 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import static LocationHandling.PlayersDestination.setDestinationX;
+import static LocationHandling.PlayersDestination.setDestinationY;
 public class Destination {
     @FXML
     private Button destinationEnterButton;
@@ -24,9 +25,8 @@ public class Destination {
             // Check if x and y are valid
             if (isValidCoordinate(x) && isValidCoordinate(y)) {
                 System.out.println("Successful: Coordinates entered are valid");
-                PlayersDestination destination = new PlayersDestination();
-                destination.setDestinationX(x);
-                destination.setDestinationY(y);
+                setDestinationX(x);
+                setDestinationY(y);
                 Stage currentStage = (Stage) destinationEnterButton.getScene().getWindow();
                 currentStage.close();
                 PlayersDestination startProgram = new PlayersDestination();

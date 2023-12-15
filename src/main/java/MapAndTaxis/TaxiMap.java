@@ -9,6 +9,8 @@ import java.util.Random;
 import static MapAndTaxis.TaxiDriving.taxiGoToDestination;
 import static MapAndTaxis.TaxiDriving.taxiGoToPlayer;
 import static MapAndTaxis.User.*;
+import static LocationHandling.PlayersDestination.getDestinationX;
+import static LocationHandling.PlayersDestination.getDestinationY;
 
 public class TaxiMap {
     public static int mapSize = 7;
@@ -99,8 +101,7 @@ public class TaxiMap {
         initialiseMap();
         moveTaxis();
         taxiGoToPlayer();
-        PlayersDestination destination = new PlayersDestination();
-        taxiGoToDestination(destination.getDestinationX(),destination.getDestinationY());
+        taxiGoToDestination(getDestinationX(),getDestinationY());
     }
 
     public static void initialiseMap() {

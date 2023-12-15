@@ -4,27 +4,27 @@ import java.util.Scanner;
 
 
 public class PlayersDestination extends Map {
-    private int DestinationX;
-    private int DestinationY;
+    private static int DestinationX;
+    private static int DestinationY;
 
     public void Destination(int DestinationX, int DestinationY){
         this.DestinationX = DestinationX;
         this.DestinationY = DestinationY;
     }
 
-    public int getDestinationX() {
+    public static int getDestinationX() {
         return DestinationX;
     }
 
-    public void setDestinationX(int destinationX) {
+    public static void setDestinationX(int destinationX) {
         DestinationX = destinationX;
     }
 
-    public int getDestinationY() {
+    public static int getDestinationY() {
         return DestinationY;
     }
 
-    public void setDestinationY(int destinationY) {
+    public static void setDestinationY(int destinationY) {
         DestinationY = destinationY;
     }
 
