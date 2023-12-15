@@ -50,8 +50,8 @@ public class PlayersDestination extends Map {
 
         if (found) {
             System.out.println("Finding you a taxi for: " + destination);
-            Location startLocation = new Location();
-            startLocation.RunLocation();
+            PassengerCount runPassengers = new PassengerCount();
+            runPassengers.Passengers();
         } else {
             System.out.println("Your destination doesn't exist");
         }
