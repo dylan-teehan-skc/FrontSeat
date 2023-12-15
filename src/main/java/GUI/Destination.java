@@ -1,11 +1,10 @@
 package GUI;
 
+import LocationHandling.PlayersDestination;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
-import static MapAndTaxis.User.setPlayerX;
-import static MapAndTaxis.User.setPlayerY;
+import javafx.stage.Stage;
 
 public class Destination {
     @FXML
@@ -25,9 +24,12 @@ public class Destination {
             // Check if x and y are valid
             if (isValidCoordinate(x) && isValidCoordinate(y)) {
                 System.out.println("Successful: Coordinates entered are valid");
-                setDestinationX(x);
-                setDestinationY(y);
-                LocationHandling.Destination startProgram = new LocationHandling.Destination();
+                PlayersDestination destination = new PlayersDestination();
+                destination.setDestinationX(x);
+                destination.setDestinationY(y);
+                Stage currentStage = (Stage) destinationEnterButton.getScene().getWindow();
+                currentStage.close();
+                PlayersDestination startProgram = new PlayersDestination();
                 startProgram.destination();
 
             } else {

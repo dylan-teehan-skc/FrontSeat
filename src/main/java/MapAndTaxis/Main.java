@@ -1,10 +1,10 @@
 package MapAndTaxis;
 
-import LocationHandling.Destination;
+import LocationHandling.PlayersDestination;
 
 public class Main {
     public static void main(String[] args) {
-        Destination startProgram = new Destination();
+        PlayersDestination startProgram = new PlayersDestination();
         startProgram.destination();
     }
 }

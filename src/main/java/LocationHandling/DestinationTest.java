@@ -14,7 +14,7 @@ public class DestinationTest {
         System.setIn(inputStream);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-        Destination destination = new Destination();
+        PlayersDestination destination = new PlayersDestination();
         destination.destination();
         assertTrue(outputStream.toString().contains("Finding you a taxi for: Location1"));
     }
@@ -26,7 +26,7 @@ public class DestinationTest {
         System.setIn(inputStream);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-        Destination destination = new Destination();
+        PlayersDestination destination = new PlayersDestination();
         destination.destination();
         assertTrue(outputStream.toString().contains("Your destination doesn't exist"));
     }

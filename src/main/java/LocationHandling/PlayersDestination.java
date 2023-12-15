@@ -3,9 +3,30 @@ package LocationHandling;
 import java.util.Scanner;
 
 
-public class Destination extends Map {
+public class PlayersDestination extends Map {
+    private int DestinationX;
+    private int DestinationY;
 
+    public void Destination(int DestinationX, int DestinationY){
+        this.DestinationX = DestinationX;
+        this.DestinationY = DestinationY;
+    }
 
+    public int getDestinationX() {
+        return DestinationX;
+    }
+
+    public void setDestinationX(int destinationX) {
+        DestinationX = destinationX;
+    }
+
+    public int getDestinationY() {
+        return DestinationY;
+    }
+
+    public void setDestinationY(int destinationY) {
+        DestinationY = destinationY;
+    }
 
     public void destination() {
         Scanner scanner = new Scanner(System.in);

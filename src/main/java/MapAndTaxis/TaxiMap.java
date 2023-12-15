@@ -1,5 +1,7 @@
 package MapAndTaxis;
 
+import LocationHandling.PlayersDestination;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -74,7 +76,7 @@ public class TaxiMap {
         for (int i = 0; i < numTaxis; i++) {
             taxiNames[i] = taxiDrivers[i].getName();
             taxiTypes[i] = taxiDrivers[i].getCarType();
-            printAllTaxiDrivers();
+            //printAllTaxiDrivers();
         }
     }
 
@@ -97,7 +99,8 @@ public class TaxiMap {
         initialiseMap();
         moveTaxis();
         taxiGoToPlayer();
-        taxiGoToDestination(6,6);
+        PlayersDestination destination = new PlayersDestination();
+        taxiGoToDestination(destination.getDestinationX(),destination.getDestinationY());
     }
 
     public static void initialiseMap() {
