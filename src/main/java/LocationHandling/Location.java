@@ -25,15 +25,6 @@ public class Location extends Map {
                     found = true;
             }
         }
-        TaxiMap player = new TaxiMap();
-        if (location.equals("Kilmurry")) {
-            setPlayerX(1);
-            setPlayerY(3);
-        } else if (location.equals("Plassey")) {
-            setPlayerX(3);
-            setPlayerY(5);
-        }
-
         if (found) {
             try {
                 System.out.println("A taxi is coming to you now at " + location);

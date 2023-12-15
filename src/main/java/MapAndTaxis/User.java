@@ -11,6 +11,8 @@ public class User extends Person {
         this.playerY = playerY;
     }
 
+
+
     public float getBalance() {
         return balance;
     }

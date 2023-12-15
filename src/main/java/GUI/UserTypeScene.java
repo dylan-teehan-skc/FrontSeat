@@ -14,9 +14,11 @@ public class UserTypeScene extends Application {
 
     @FXML
     private Button driverButton;
+    @FXML
+    private Button riderButton;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.LoginScene.class.getResource("UserTypeScene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(DriverLogin.class.getResource("UserTypeScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 639, 639);
         stage.setScene(scene);
         stage.setTitle("UserChoice");
@@ -43,9 +45,24 @@ public class UserTypeScene extends Application {
         }
     }
 
-    public void PrintHello() {
-        System.out.println("Hello");
+    public void openRiderLoginScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("riderLogin.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 484, 487));
+            stage.show();
+            stage.setY(140);
+            stage.setX(505);
+
+            // Close the current login window if needed
+            Stage currentStage = (Stage) riderButton.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     // Main method to launch the JavaFX application
     public static void main(String[] args) {

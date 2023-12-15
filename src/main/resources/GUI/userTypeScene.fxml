@@ -19,7 +19,7 @@
             <Font name="Cambria Bold" size="29.0" />
          </font>
       </Button>
-      <Button fx:id="riderButton" layoutX="148.0" layoutY="300.0" mnemonicParsing="false" onAction="#PrintHello" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="RIDER">
+      <Button fx:id="riderButton" layoutX="148.0" layoutY="300.0" mnemonicParsing="false" onAction="#openRiderLoginScene" prefHeight="62.0" prefWidth="342.0" style="-fx-background-color: #ffb366;" text="RIDER">
          <font>
             <Font name="Cambria Bold" size="29.0" />
          </font>
