@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+
+import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiDriving.taxiGoToDestination;
 import static MapAndTaxis.TaxiDriving.taxiGoToPlayer;
 import static MapAndTaxis.User.*;
@@ -96,12 +98,11 @@ public class TaxiMap {
 
     public static String[][] map = new String[mapSize][mapSize];
 
-
     public static void RunMap() throws InterruptedException, IOException {
         initialiseMap();
         moveTaxis();
-        taxiGoToPlayer();
-        taxiGoToDestination(getDestinationX(),getDestinationY());
+        taxiGoToPlayer(getTaxitype());
+        taxiGoToDestination(getDestinationX(), getDestinationY(), getTaxitype());
     }
 
     public static void initialiseMap() {
@@ -180,7 +181,7 @@ public class TaxiMap {
                 map[taxiX[j]][taxiY[j]] = "T";
 
                 // Check for nearby taxis
-                checkIfTaxiArrived(j);
+                //checkIfTaxiArrived(j);
             }
 
             // Update the player's position
@@ -226,7 +227,7 @@ public class TaxiMap {
 
         // Check if the player is in the same block as the taxi
         boolean taxiHere = (taxiXCoord == playerXCoord) && (taxiYCoord == playerYCoord);
-        int closestTaxiIndex = findClosestTaxi();
+        int closestTaxiIndex = findClosestTaxi(getTaxitype());
         // Print the result
         if (taxiHere) {
             System.out.println(taxiNames[taxiIndex] + " in a " + taxiTypes[taxiIndex] + " taxi has arrived");
@@ -238,19 +239,47 @@ public class TaxiMap {
         }
     }
 
-    public static int findClosestTaxi() {
-        int closestTaxiIndex = 0;
-        double minDistance = Double.MAX_VALUE;
+    public static int findClosestTaxi(String requiredTaxiType) {
+        int playerXCoord = getPlayerX();
+        int playerYCoord = getPlayerY();
 
-        for (int j = 0; j < numTaxis; j++) {
-            double distance = Math.sqrt(Math.pow(getPlayerX()- taxiX[j], 2) + Math.pow(getPlayerY() - taxiY[j], 2));
+        // Set the radius for proximity check
+        int radius = 6;
 
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestTaxiIndex = j;
+        for (int r = 1; r <= radius; r++) {
+            for (int x = playerXCoord - r; x <= playerXCoord + r; x++) {
+                for (int y = playerYCoord - r; y <= playerYCoord + r; y++) {
+                    // Check if the current coordinates are within the valid map bounds
+                    if (isValidCoordinate(x, y) && map[x][y].equals("T")) {
+                        int taxiIndex = findTaxiIndexAtCoordinates(x, y);
+                        if (taxiIndex != -1) {
+                            // Check if the found taxi matches the required type
+                            if (taxiTypes[taxiIndex].equalsIgnoreCase(requiredTaxiType)) {
+                                return taxiIndex;
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        return closestTaxiIndex;
+        System.out.println("No available taxis of type " + requiredTaxiType + " in the vicinity. Please wait until one is available.");
+        return -1;
     }
+
+    // Add this method to check if the coordinates are within the valid map bounds
+    private static boolean isValidCoordinate(int x, int y) {
+        return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
+    }
+
+
+    private static int findTaxiIndexAtCoordinates(int x, int y) {
+        for (int i = 0; i < numTaxis; i++) {
+            if (taxiX[i] == x && taxiY[i] == y) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }

@@ -3,21 +3,25 @@ import java.util.Scanner;
 
 
 public class PassengerCount {
+    private static int passengers;
+    public void passengerCount(int passengers){
+        this.passengers = passengers;
+    }
 
-
-    private int passengers;
-    public int getPassengers() {
+    public static int getPassengers() {
         return passengers;
+    }
+
+    public static void setPassengers(int passengers) {
+        PassengerCount.passengers = passengers;
     }
 
     public void Passengers() {
 
         Scanner scanner = new Scanner(System.in);
-
-
         do {
             System.out.println("How many passengers will be travelling with you");
-            passengers = scanner.nextInt();
+            passengers = getPassengers();
 
             if (passengers< 0 || passengers > 7) {
                 System.out.println("The maximum capacity is 7");

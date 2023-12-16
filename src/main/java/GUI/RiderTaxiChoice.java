@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static MapAndTaxis.Taxi.setTaxitype;
+
 public class RiderTaxiChoice {
     @FXML
     private Button regularButton;
@@ -39,21 +41,21 @@ public class RiderTaxiChoice {
 
     @FXML
     private void setStandardTaxiType() {
-        taxitype = "standard";
+        setTaxitype("Standard");
         System.out.println("Taxi type set to Standard");
         openCurrentLocation();
     }
 
     @FXML
     private void setAccessibleTaxiType() {
-        taxitype = "accessible";
+        setTaxitype("Accessible");
         System.out.println("Taxi type set to Accessible");
         openCurrentLocation();
     }
 
     @FXML
     private void setDeluxeTaxiType() {
-        taxitype = "deluxe";
+        setTaxitype("Deluxe");
         System.out.println("Taxi type set to Deluxe");
         openCurrentLocation();
     }

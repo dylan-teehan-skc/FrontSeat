@@ -1,13 +1,13 @@
 package MapAndTaxis;
 
 import static MapAndTaxis.Car.taxiJourney;
+import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiMap.*;
 import static MapAndTaxis.User.getPlayerX;
 import static MapAndTaxis.User.getPlayerY;
 import static LocationHandling.Review.GiveReview;
 
 public class TaxiDriving {
-
     private double distance;
 
     public void setDistance(double distance) {
@@ -18,7 +18,7 @@ public class TaxiDriving {
         return distance;
     }
 
-    public static void taxiGoToPlayer() throws InterruptedException {
+    public static void taxiGoToPlayer(String taxiType) throws InterruptedException {
         moveTaxis();
         boolean taxiArrived = false;
 
@@ -26,54 +26,59 @@ public class TaxiDriving {
             // Clear the console (print empty lines)
             clearConsole();
 
-            int closestTaxiIndex = findClosestTaxi();
+            int closestTaxiIndex = findClosestTaxi(taxiType);
 
-            // Move the closest taxi towards the player
-            int playerXCoord = getPlayerX();
-            int playerYCoord = getPlayerY();
-            int taxiXCoord = taxiX[closestTaxiIndex];
-            int taxiYCoord = taxiY[closestTaxiIndex];
+            if (closestTaxiIndex != -1) {
+                // Move the closest taxi towards the player
+                int playerXCoord = getPlayerX();
+                int playerYCoord = getPlayerY();
+                int taxiXCoord = taxiX[closestTaxiIndex];
+                int taxiYCoord = taxiY[closestTaxiIndex];
 
-            int newX, newY;
+                int newX, newY;
 
-            if (taxiXCoord < playerXCoord) {
-                newX = taxiXCoord + 1;
-            } else if (taxiXCoord > playerXCoord) {
-                newX = taxiXCoord - 1;
+                if (taxiXCoord < playerXCoord) {
+                    newX = taxiXCoord + 1;
+                } else if (taxiXCoord > playerXCoord) {
+                    newX = taxiXCoord - 1;
+                } else {
+                    newX = taxiXCoord;
+                }
+
+                if (taxiYCoord < playerYCoord) {
+                    newY = taxiYCoord + 1;
+                } else if (taxiYCoord > playerYCoord) {
+                    newY = taxiYCoord - 1;
+                } else {
+                    newY = taxiYCoord;
+                }
+
+                // Check boundaries to prevent going out of the map
+                newX = Math.max(0, Math.min(newX, mapSize - 1));
+                newY = Math.max(0, Math.min(newY, mapSize - 1));
+
+                // Update the taxi position
+                map[taxiX[closestTaxiIndex]][taxiY[closestTaxiIndex]] = "-";
+                taxiX[closestTaxiIndex] = newX;
+                taxiY[closestTaxiIndex] = newY;
+                map[newX][newY] = "T";
+
+                // Check for nearby taxis
+                taxiArrived = checkIfTaxiArrived(closestTaxiIndex);
+
+                // Print the map
+                printMap(map);
+
+                // Sleep for 2 seconds
+                Thread.sleep(2000);
             } else {
-                newX = taxiXCoord;
+                System.out.println("No available taxis of type " + taxiType + " in the vicinity. Please wait until one is available.");
+                break; // Exit the loop if no taxi of the specified type is available
             }
-
-            if (taxiYCoord < playerYCoord) {
-                newY = taxiYCoord + 1;
-            } else if (taxiYCoord > playerYCoord) {
-                newY = taxiYCoord - 1;
-            } else {
-                newY = taxiYCoord;
-            }
-
-            // Check boundaries to prevent going out of the map
-            newX = Math.max(0, Math.min(newX, mapSize - 1));
-            newY = Math.max(0, Math.min(newY, mapSize - 1));
-
-            // Update the taxi position
-            map[taxiX[closestTaxiIndex]][taxiY[closestTaxiIndex]] = "-";
-            taxiX[closestTaxiIndex] = newX;
-            taxiY[closestTaxiIndex] = newY;
-            map[newX][newY] = "T";
-
-            // Check for nearby taxis
-            taxiArrived = checkIfTaxiArrived(closestTaxiIndex);
-
-            // Print the map
-            printMap(map);
-
-            // Sleep for 2 seconds
-            Thread.sleep(2000);
         }
     }
 
-    public static void taxiGoToDestination(int destinationX, int destinationY) throws InterruptedException {
+    public static void taxiGoToDestination(int destinationX, int destinationY, String taxiType) throws InterruptedException {
         taxiJourney();
         double distance = Math.sqrt(Math.pow(getPlayerX() - destinationX, 2) + Math.pow(getPlayerY() - destinationY, 2));
 
@@ -81,9 +86,16 @@ public class TaxiDriving {
         TaxiDriving distanceObject = new TaxiDriving();
         distanceObject.setDistance(distance);
 
-        int closestTaxiIndex = findClosestTaxi();
+        int closestTaxiIndex = findClosestTaxi(taxiType);
         boolean taxiArrived = false;
         boolean repeat = true;
+
+        if (closestTaxiIndex == -1) {
+            System.out.println("No available taxis of type " + taxiType + " in the vicinity. Please wait until one is available.");
+            return; // Exit the method if no taxi of the specified type is available
+        }
+
+        boolean journeyStarted = false; // Flag to track whether the taxi journey has started
 
         while (repeat) {
             clearConsole();
@@ -114,11 +126,15 @@ public class TaxiDriving {
             if (taxiXCoord == destinationX && taxiYCoord == destinationY) {
                 taxiArrived = true;
                 System.out.println("You have reached your destination");
-                LocationHandling.Payment startPayment = new  LocationHandling.Payment();
+                LocationHandling.Payment startPayment = new LocationHandling.Payment();
                 startPayment.proccessPayment(distanceObject);
 
                 repeat = false; // Exit the loop when the destination is reached
             } else {
+                if (!journeyStarted) {
+                    System.out.println("Your taxi journey has begun");
+                    journeyStarted = true; // Set the flag to true after printing the message
+                }
                 printMap(map); // Print the map only if the taxi hasn't arrived yet
             }
 

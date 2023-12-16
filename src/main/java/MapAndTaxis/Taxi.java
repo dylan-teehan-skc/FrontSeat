@@ -1,37 +1,37 @@
 package MapAndTaxis;
 
 public class Taxi {
-    private Taxi taxitype;
-    private int peopleCarrying;
-    private int price;
+    private static String taxitype;
+    private static int peopleCarrying;
+    private static int price;
 
-    public void Taxi(Taxi taxitype, int peopleCarrying, int price){
-        this.taxitype = taxitype;
-        this.peopleCarrying = peopleCarrying;
-        this.price = price;
+    public void Taxi(String taxitype, int peopleCarrying, int price) {
+        Taxi.taxitype = taxitype;
+        Taxi.peopleCarrying = peopleCarrying;
+        Taxi.price = price;
     }
 
-    public Taxi getTaxitype() {
+    public static String getTaxitype() {
         return taxitype;
     }
 
-    public void setTaxitype(Taxi taxitype) {
-        this.taxitype = taxitype;
+    public static void setTaxitype(String taxitype) {
+        Taxi.taxitype = taxitype;
     }
 
-    public int getPeopleCarrying() {
+    public static int getPeopleCarrying() {
         return peopleCarrying;
     }
 
-    public void setPeopleCarrying(int peopleCarrying) {
-        this.peopleCarrying = peopleCarrying;
+    public static void setPeopleCarrying(int peopleCarrying) {
+        Taxi.peopleCarrying = peopleCarrying;
     }
 
-    public int getPrice() {
+    public static int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public static void setPrice(int price) {
+        Taxi.price = price;
     }
 }
