@@ -1,39 +1,39 @@
 package MapAndTaxis;
 
 public class TaxiDriver extends Person {
-    private String reg;
-    private int rating;
-    private String carType;
+    private static String reg;
+    private static int rating;
+    private static String carType;
 
     // Constructor for the TaxiDriver class
     public TaxiDriver(String name, String reg, int rating, String carType) {
         super(name);  // Using the constructor of the Person class
-        this.reg = reg;
-        this.rating = rating;
-        this.carType = carType;
+        TaxiDriver.reg = reg;
+        TaxiDriver.rating = rating;
+        TaxiDriver.carType = carType;
     }
 
-    public String getReg() {
+    public static String getReg() {
         return reg;
     }
 
-    public void setReg(String reg) {
-        this.reg = reg;
+    public static void setReg(String reg) {
+        TaxiDriver.reg = reg;
     }
 
-    public int getRating() {
+    public static int getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public static void setRating(int rating) {
+        TaxiDriver.rating = rating;
     }
 
-    public String getCarType() {
+    public static String getCarType() {
         return carType;
     }
 
-    public void setCarType(String carType) {
-        this.carType = carType;
+    public static void setCarType(String carType) {
+        TaxiDriver.carType = carType;
     }
 }

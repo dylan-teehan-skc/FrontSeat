@@ -17,9 +17,7 @@ public class PassengerCount {
     public static void setPassengers(int passengers) {
         PassengerCount.passengers = passengers;
     }
-
     public void Passengers() {
-
         Scanner scanner = new Scanner(System.in);
         // previous functionality you had done is now implemented into gui
         System.out.println("You selected " + passengers + "number of passengers");

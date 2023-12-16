@@ -22,6 +22,7 @@ public class TaxiMap {
     private static TaxiDriver[] taxiDrivers = new TaxiDriver[numTaxis];
     private static String[] taxiNames = new String[numTaxis];
     private static String[] taxiTypes = new String[numTaxis];
+    private static String[] licensePlates = new String[numTaxis];
 
 
     static {
@@ -42,6 +43,7 @@ public class TaxiMap {
                 taxiDrivers = new TaxiDriver[(int) numTaxis];
                 taxiNames = new String[(int) numTaxis];
                 taxiTypes = new String[(int) numTaxis];
+                licensePlates = new String[(int) numTaxis];
 
                 // Rewind the reader to read data lines again
                 reader.close();
@@ -65,6 +67,7 @@ public class TaxiMap {
                     taxiDrivers[index] = new TaxiDriver(name, licensePlate, rating, carType);
                     taxiNames[index] = name;
                     taxiTypes[index] = carType;
+                    licensePlates[index] = licensePlate;
 
                     index++;
                 }
@@ -230,7 +233,7 @@ public class TaxiMap {
         int closestTaxiIndex = findClosestTaxi(getTaxitype());
         // Print the result
         if (taxiHere) {
-            System.out.println(taxiNames[taxiIndex] + " in a " + taxiTypes[taxiIndex] + " taxi has arrived");
+            System.out.println(taxiNames[taxiIndex] + " in a " + taxiTypes[taxiIndex] + " taxi has arrived - (" + licensePlates[taxiIndex] + ")");
             return true;  // Taxi has arrived, set the flag to true
 
         } else {

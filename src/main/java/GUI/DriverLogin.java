@@ -1,30 +1,63 @@
 package GUI;
 
-import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-// Main class for starting the login application
-public class DriverLogin extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(DriverLogin.class.getResource("driverLogin.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 674, 438);
-        stage.setTitle("Login");
-        stage.setScene(scene);
-        stage.show();
-        stage.setY(120);
-        stage.setX(400);
+import static MapAndTaxis.TaxiDriver.setCarType;
+
+public class DriverLogin {
+    @FXML
+    private Button regularButton;
+
+    @FXML
+    private Button accesableButton;
+
+    @FXML
+    private Button deluxeButton;
+
+    @FXML
+    private void setStandardDriverType() {
+        setCarType("Standard");
+        System.out.println("Taxi type set to Standard");
+        openDriverDetails();
     }
 
-    public void PrintHello(){
-        System.out.println("Hello");
+    @FXML
+    private void setAccessibleDriverType() {
+        setCarType("Accessible");
+        System.out.println("Taxi type set to Accessible");
+        openDriverDetails();
     }
-    // Main method to launch the JavaFX application
-    public static void main(String[] args) {
-        launch();
+
+    @FXML
+    private void setDeluxeDriverType() {
+        setCarType("Deluxe");
+        System.out.println("Taxi type set to Deluxe");
+        openDriverDetails();
+    }
+
+    @FXML
+    private void openDriverDetails() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DriverDetails.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 600, 375));
+            stage.show();
+            stage.setY(230);
+            stage.setX(460);
+
+            // Close the current login window if needed
+            Stage currentStage = (Stage) deluxeButton.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

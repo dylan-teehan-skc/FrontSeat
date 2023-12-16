@@ -21,7 +21,7 @@ public class CarPannel extends JPanel {
     public CarPannel() {
         timer = new Timer(DELAY, new CarMove());
         x = 0;
-        moveX = 4;
+        moveX = 3;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(SKYBLUE);
         timer.start();
