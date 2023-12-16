@@ -41,6 +41,11 @@ public class Payment extends PassengerCount{
 
 
     }
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
+
+
 }
 
 

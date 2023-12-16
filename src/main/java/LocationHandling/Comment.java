@@ -6,6 +6,8 @@ public class Comment {
 
 
 
+
+
     public void askForComment() {
 
 
@@ -19,6 +21,8 @@ public class Comment {
                 scanner.nextLine();
                 String comment = scanner.nextLine();
                 System.out.println("Thank you for your comment \n You commented " + comment + " \n Have a nice day");
+                Tip runTip = new Tip();
+                runTip.tip();
                 break;
             case 2 : System.out.println("You decided not to leave a comment \n Have a nice day");
             default:
@@ -28,6 +32,9 @@ public class Comment {
 
     }while( answer <1 || answer >2);
 
+
+
 }
+
 
 }
