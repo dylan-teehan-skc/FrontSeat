@@ -1,12 +1,13 @@
-package LocationHandling;
+package Tests;
+
+import LocationHandling.PlayersDestination;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import static org.junit.Assert.assertTrue;
 
 public class DestinationTest {
-
     @Test
     public void testValidDestination() {
         String input = "Location1\n";
@@ -31,3 +32,4 @@ public class DestinationTest {
         assertTrue(outputStream.toString().contains("Your destination doesn't exist"));
     }
 }
+

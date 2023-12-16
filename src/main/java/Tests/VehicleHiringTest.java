@@ -1,4 +1,4 @@
-package MapAndTaxis;
+package Tests;
 
 import LocationHandling.Location;
 
