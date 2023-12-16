@@ -32,10 +32,8 @@ public class PlayersDestination extends Map {
         System.out.println("Finding you a taxi for your destination ");
         Location startLocation = new Location();
         startLocation.RunLocation();
-
     }
 }
-
 
 
 //        Scanner scanner = new Scanner(System.in);
