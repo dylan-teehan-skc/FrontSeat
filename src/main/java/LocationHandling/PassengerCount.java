@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class PassengerCount {
     private static int passengers;
+    static int passengersnumber;
 
     public void passengerCount(int passengers) {
         this.passengers = passengers;
@@ -15,7 +16,7 @@ public class PassengerCount {
     }
 
     public static void setPassengers(int passengers) {
-        PassengerCount.passengers = passengers;
+        PassengerCount.passengersnumber = passengers;
     }
 
     public void Passengers() {
