@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 public class Tip extends Payment{
-    private int updatedBalance;
+    private int tipBalance;
 
 
     public void tip(){
@@ -13,21 +13,24 @@ public class Tip extends Payment{
 
 
 
-       do {
-           if (tip == 1) {
-               System.out.println("Please enter how much you would like to tip");
-               int tipAmount = scanner.nextInt();
-               System.out.println("You tipped " + tipAmount);
-               updatedBalance = (int)(getCurrentBalance() - tipAmount);
-               System.out.println("Your balance is " + updatedBalance);
+        do {
+            if (tip == 1) {
+                System.out.println("Please enter how much you would like to tip");
+                int tipAmount = scanner.nextInt();
+                if (tipAmount > 10){
+                    System.out.println("You dont have enough money");
+                }else {
+                    System.out.println("You tipped " + tipAmount  + "\n Have a good day");
+                }
 
 
-           } else if (tip == 2) {
-               System.out.println("You choose not to tip\n Have a good day");
-           } else {
-               System.out.println("invalid input");
-           }
-       } while (tip <1 || tip > 2);
+
+            } else if (tip == 2) {
+                System.out.println("You choose not to tip\n Have a good day");
+            } else {
+                System.out.println("invalid input");
+            }
+        } while (tip <1 || tip > 2);
 
     }
 

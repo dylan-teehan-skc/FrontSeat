@@ -11,6 +11,7 @@ public class Taxi {
         Taxi.peopleCarrying = peopleCarrying;
         Taxi.price = price;
     }
+
     public void regNumber(){
     char firstLetter = generateRandomLetter();
     char secondLetter = generateRandomLetter();
@@ -65,5 +66,5 @@ public class Taxi {
 
     public void taxiInfo(){
 
-    }
+   }
 }

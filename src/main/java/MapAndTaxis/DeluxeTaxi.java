@@ -1,7 +1,7 @@
 package MapAndTaxis;
 
 public class DeluxeTaxi extends Taxi{
-    @Override
+   @Override
     public void regNumber() {
         super.regNumber();
     }
