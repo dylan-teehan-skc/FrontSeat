@@ -2,17 +2,32 @@ package LocationHandling;
 
 import MapAndTaxis.TaxiDriving;
 
-public class Payment {
-    private int currentBalance = 50;
-    private int taxiFee;
+
+
+public class Payment extends PassengerCount{
+    private double currentBalance = 50;
+    private double taxiFee;
+
+    private int multiplier;
+
+
+
+
+
+
+
 
     public void proccessPayment(TaxiDriving taxi) {
+        PassengerCount countPassengers1 =  new PassengerCount();
+
+
 
         double distance = taxi.getDistance();
         String formattedDistance = String.format("%.2f", distance);
         System.out.println("You traveled " + formattedDistance + " km");
 
-        taxiFee = (int) (distance * 2.5);
+
+        taxiFee = (double) (distance *4 * (1 +(countPassengers1.passengersnumber * .1)));
         System.out.println("Your taxi fee is " + taxiFee);
         updateBalance();
 

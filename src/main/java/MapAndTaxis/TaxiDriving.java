@@ -1,5 +1,7 @@
 package MapAndTaxis;
 
+import LocationHandling.PassengerCount;
+
 import static MapAndTaxis.Car.taxiJourney;
 import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiMap.*;
