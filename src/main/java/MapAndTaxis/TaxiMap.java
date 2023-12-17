@@ -1,15 +1,12 @@
 package MapAndTaxis;
 
-import LocationHandling.PlayersDestination;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
 import static MapAndTaxis.Taxi.getTaxitype;
-import static MapAndTaxis.TaxiDriving.taxiGoToDestination;
-import static MapAndTaxis.TaxiDriving.taxiGoToPlayer;
+import static MapAndTaxis.TaxiDriving.*;
 import static MapAndTaxis.User.*;
 import static LocationHandling.PlayersDestination.getDestinationX;
 import static LocationHandling.PlayersDestination.getDestinationY;
@@ -17,44 +14,37 @@ import static LocationHandling.PlayersDestination.getDestinationY;
 public class TaxiMap {
     public static int mapSize = 7;
     private static int numTaxis;
-    public static int[] taxiX = new int[numTaxis];
-    public static int[] taxiY = new int[numTaxis];
-    private static TaxiDriver[] taxiDrivers = new TaxiDriver[numTaxis];
-    private static String[] taxiNames = new String[numTaxis];
-    private static String[] taxiTypes = new String[numTaxis];
-    private static String[] licensePlates = new String[numTaxis];
-
+    public static int[] taxiX;
+    public static int[] taxiY;
+    private static TaxiDriver[] taxiDrivers;
+    private static TaxiDriver2[] taxiDrivers2;
+    private static String[] taxiNames;
+    private static String[] taxiTypes;
+    private static String[] licensePlates;
 
     static {
         try {
             String csvFilePath = "TaxiDrivers.csv";
 
-            // Use FileReader and BufferedReader to read the CSV file
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-                // Skip the header line if it exists
                 reader.readLine();
 
-                // Count the number of lines in the CSV file
                 numTaxis = (int) reader.lines().count();
 
-                // Initialize arrays with dynamic size
-                taxiX = new int[(int) numTaxis];
-                taxiY = new int[(int) numTaxis];
-                taxiDrivers = new TaxiDriver[(int) numTaxis];
-                taxiNames = new String[(int) numTaxis];
-                taxiTypes = new String[(int) numTaxis];
-                licensePlates = new String[(int) numTaxis];
+                taxiX = new int[numTaxis];
+                taxiY = new int[numTaxis];
+                taxiDrivers2 = new TaxiDriver2[numTaxis];
+                taxiNames = new String[numTaxis];
+                taxiTypes = new String[numTaxis];
+                licensePlates = new String[numTaxis];
 
-                // Rewind the reader to read data lines again
+                // Reset the reader to the beginning of the file
                 reader.close();
-
-                // Create a new BufferedReader for reading data lines
                 BufferedReader dataReader = new BufferedReader(new FileReader(csvFilePath));
-                dataReader.readLine(); // Skip the header line
+                dataReader.readLine();
 
                 int index = 0;
 
-                // Read data lines and populate arrays
                 String line;
                 while ((line = dataReader.readLine()) != null && index < numTaxis) {
                     String[] nextRecord = line.split(",");
@@ -64,7 +54,7 @@ public class TaxiMap {
                     int rating = Integer.parseInt(nextRecord[2].trim());
                     String carType = nextRecord[3].trim();
 
-                    taxiDrivers[index] = new TaxiDriver(name, licensePlate, rating, carType);
+                    taxiDrivers2[index] = new TaxiDriver2(name, licensePlate, rating, carType);
                     taxiNames[index] = name;
                     taxiTypes[index] = carType;
                     licensePlates[index] = licensePlate;
@@ -72,28 +62,25 @@ public class TaxiMap {
                     index++;
                 }
 
-                // Close the dataReader
                 dataReader.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Move this loop inside the static block
         for (int i = 0; i < numTaxis; i++) {
-            taxiNames[i] = taxiDrivers[i].getName();
-            taxiTypes[i] = taxiDrivers[i].getCarType();
-            //printAllTaxiDrivers();
+            taxiNames[i] = taxiDrivers2[i].getName();
+            taxiTypes[i] = taxiDrivers2[i].getCarType2();
         }
     }
 
     public static void printAllTaxiDrivers() {
         for (int i = 0; i < numTaxis; i++) {
             System.out.println("Taxi Driver " + (i + 1) + " Details:");
-            System.out.println("Name: " + taxiDrivers[i].getName());
-            System.out.println("License Plate: " + taxiDrivers[i].getReg());
-            System.out.println("Rating: " + taxiDrivers[i].getRating());
-            System.out.println("Car Type: " + taxiDrivers[i].getCarType());
+            System.out.println("Name: " + taxiDrivers2[i].getName());
+            System.out.println("License Plate: " + taxiDrivers2[i].getReg2());
+            System.out.println("Rating: " + taxiDrivers2[i].getRating2());
+            System.out.println("Car Type: " + taxiDrivers2[i].getCarType2());
             System.out.println();
         }
     }
@@ -246,8 +233,8 @@ public class TaxiMap {
         int playerXCoord = getPlayerX();
         int playerYCoord = getPlayerY();
 
-        // Set the radius for proximity check
-        int radius = 6;
+        // Set the radius for proximity check (5-block radius)
+        int radius = 5;
 
         for (int r = 1; r <= radius; r++) {
             for (int x = playerXCoord - r; x <= playerXCoord + r; x++) {
@@ -270,6 +257,9 @@ public class TaxiMap {
         return -1;
     }
 
+
+
+
     // Add this method to check if the coordinates are within the valid map bounds
     private static boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
@@ -283,6 +273,16 @@ public class TaxiMap {
             }
         }
         return -1;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        printAllTaxiDrivers();
+        initialiseMap();
+
+        findClosestTaxi("Standard");
+        System.out.println(findClosestTaxi("Standard"));
+        System.out.println(findClosestTaxi("Deluxe"));
+        System.out.println(findClosestTaxi("Accesible"));
     }
 
 }

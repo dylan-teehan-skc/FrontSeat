@@ -27,7 +27,7 @@ public class Payment extends PassengerCount{
         System.out.println("You traveled " + formattedDistance + " km");
 
 
-        taxiFee = (double) (distance *4 * (1 +(countPassengers1.passengersnumber * .1)));
+       // taxiFee = (double) (distance *4 * (1 +(countPassengers1.passengersnumber * .1)));
         System.out.println("Your taxi fee is " + taxiFee);
         updateBalance();
 

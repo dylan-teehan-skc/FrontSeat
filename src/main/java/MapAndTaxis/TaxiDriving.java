@@ -93,7 +93,6 @@ public class TaxiDriving {
         boolean repeat = true;
 
         if (closestTaxiIndex == -1) {
-            System.out.println("No available taxis of type " + taxiType + " in the vicinity. Please wait until one is available.");
             return; // Exit the method if no taxi of the specified type is available
         }
 
