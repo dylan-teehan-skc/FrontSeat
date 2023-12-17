@@ -16,6 +16,8 @@ public class Review {
                 System.out.println("Invalid answer");
             } else {
                 System.out.println("You gave your driver " + rating + " out of 10");
+                Comment runComment = new Comment();
+                runComment.askForComment();
             }
         } while (rating < 0 || rating > 10);
 

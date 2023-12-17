@@ -1,4 +1,4 @@
-package MapAndTaxis;
+/*package MapAndTaxis;
 
 import LocationHandling.PlayersDestination;
 
@@ -7,4 +7,4 @@ public class Main {
         PlayersDestination startProgram = new PlayersDestination();
         startProgram.destination();
     }
-}
+}*/

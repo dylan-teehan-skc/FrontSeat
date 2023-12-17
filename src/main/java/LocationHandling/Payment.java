@@ -8,7 +8,7 @@ public class Payment extends PassengerCount{
     private double currentBalance = 50;
     private double taxiFee;
 
-    private int multiplier;
+
 
 
 
@@ -41,6 +41,9 @@ public class Payment extends PassengerCount{
 
 
     }
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
+
+
 }
-
-
