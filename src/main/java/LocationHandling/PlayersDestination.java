@@ -1,6 +1,6 @@
 package LocationHandling;
 
-public class PlayersDestination extends Map {
+public class PlayersDestination {
     private static int DestinationX;
     private static int DestinationY;
 

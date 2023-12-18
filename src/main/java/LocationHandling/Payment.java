@@ -8,15 +8,6 @@ public class Payment extends PassengerCount{
     private double currentBalance = 50;
     private double taxiFee;
 
-
-
-
-
-
-
-
-
-
     public void proccessPayment(TaxiDriving taxi) {
         PassengerCount countPassengers1 =  new PassengerCount();
 
@@ -27,15 +18,17 @@ public class Payment extends PassengerCount{
         System.out.println("You traveled " + formattedDistance + " km");
 
 
-       // taxiFee = (double) (distance *4 * (1 +(countPassengers1.passengersnumber * .1)));
-        System.out.println("Your taxi fee is " + taxiFee);
+       taxiFee = (double) (distance *4 * (1 +(countPassengers1.passengersnumber * .1)));
+        String formattedTaxiFee = String.format("%.2f", taxiFee);
+        System.out.println("Your taxi fee is " + formattedTaxiFee + "euro");
         updateBalance();
 
     }
 
     private void updateBalance() {
         currentBalance -= taxiFee;
-        System.out.println("Payment processed. Current Balance: " + currentBalance);
+        String formattedBalance = String.format("%.2f", currentBalance);
+        System.out.println("Payment processed. Current Balance: " + formattedBalance);
         Review startReview = new Review();
         startReview.GiveReview();
 

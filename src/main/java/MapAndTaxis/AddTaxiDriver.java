@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AddTaxiDriver {
+public abstract class AddTaxiDriver {
 
     public static void main(String[] args) {
         // Example usage:
@@ -29,4 +29,9 @@ public class AddTaxiDriver {
             e.printStackTrace();
         }
     }
+
+    protected abstract PrintWriter createPrintWriter(FileWriter fileWriter) throws IOException;
+
+    protected abstract FileWriter createFileWriter(String csvFilePath, boolean append) throws IOException;
+
 }

@@ -17,11 +17,11 @@ public class Comment {
                 System.out.println("Please leave your comment below");
                 scanner.nextLine();
                 String comment = scanner.nextLine();
-                System.out.println("Thank you for your comment \n You commented " + comment + " \n Have a nice day");
+                System.out.println("Thank you for your comment \n You commented " + comment);
                 Tip runTip = new Tip();
                 runTip.tip();
             } else if (answer == 2) {
-                System.out.println("You decided not to leave a comment \n Have a nice day");
+                System.out.println("You decided not to leave a comment ");
                 Tip runTip2 = new Tip();
                 runTip2.tip();
             } else {

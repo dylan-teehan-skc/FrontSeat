@@ -41,8 +41,6 @@ public class RiderLogin {
             String line;
             String user = usernameField.getText();
             String password = passwordField.getText();
-            System.out.println(user);
-            System.out.println(password);
             boolean loggedIn = false;
 
             // Iterate through each line in the CSV file

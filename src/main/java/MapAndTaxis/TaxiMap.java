@@ -13,10 +13,9 @@ import static LocationHandling.PlayersDestination.getDestinationY;
 
 public class TaxiMap {
     public static int mapSize = 7;
-    private static int numTaxis;
+    public static int numTaxis;
     public static int[] taxiX;
     public static int[] taxiY;
-    private static TaxiDriver[] taxiDrivers;
     private static TaxiDriver2[] taxiDrivers2;
     private static String[] taxiNames;
     private static String[] taxiTypes;
@@ -233,8 +232,8 @@ public class TaxiMap {
         int playerXCoord = getPlayerX();
         int playerYCoord = getPlayerY();
 
-        // Set the radius for proximity check (5-block radius)
-        int radius = 5;
+        // Set the radius for proximity check
+        int radius = 9;
 
         for (int r = 1; r <= radius; r++) {
             for (int x = playerXCoord - r; x <= playerXCoord + r; x++) {
@@ -261,7 +260,7 @@ public class TaxiMap {
 
 
     // Add this method to check if the coordinates are within the valid map bounds
-    private static boolean isValidCoordinate(int x, int y) {
+    public static boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
     }
 
@@ -273,16 +272,6 @@ public class TaxiMap {
             }
         }
         return -1;
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        printAllTaxiDrivers();
-        initialiseMap();
-
-        findClosestTaxi("Standard");
-        System.out.println(findClosestTaxi("Standard"));
-        System.out.println(findClosestTaxi("Deluxe"));
-        System.out.println(findClosestTaxi("Accesible"));
     }
 
 }
