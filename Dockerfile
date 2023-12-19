@@ -1,7 +1,7 @@
 FROM openjdk:21
 
-WORKDIR /app
+WORKDIR /opt
 
-COPY target/*.jar /app/app.jar
+COPY target/*.jar /opt/app.jar
 
 CMD ["java","-jar","app.jar"]
