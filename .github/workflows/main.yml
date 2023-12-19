@@ -10,19 +10,7 @@ jobs:
     steps:
           - name: Check Out Repo
             uses: actions/checkout@v2
-          - name: Set up JDK 21
-            uses: actions/setup-java@v2
-            with:
-              distribution: 'adopt'
-              java-version: '21'
-              # Optionally, you can specify java-package: jdk # For a specific JDK package
-              
-          - name: Save JAR artifact
-            uses: actions/upload-artifact@v2
-            with:
-              name: Frontseat-JAR
-              path: target/FrontSeat-1.0-SNAPSHOT.jar
-             
+
           - name: Login to Docker Hub
             uses: docker/login-action@v1
             with:
@@ -40,7 +28,7 @@ jobs:
               context: ./
               file: ./Dockerfile
               push: true
-              tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clitaxi:latest
+              tags: ${{ secrets.DOCKER_HUB_USERNAME }}/frontseat:latest
    
           - name: Image digest
             run: echo ${{ steps.docker_build.outputs.digest }}
