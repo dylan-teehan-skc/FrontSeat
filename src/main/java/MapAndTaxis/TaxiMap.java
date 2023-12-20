@@ -4,18 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+// Import your custom ArrayList class
+import MapAndTaxis.MyArrayList;
 
 import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiDriving.*;
 import static LocationHandling.PlayersDestination.getDestinationX;
 import static LocationHandling.PlayersDestination.getDestinationY;
+import static MapAndTaxis.User.getPlayerX;
+import static MapAndTaxis.User.getPlayerY;
 
 public class TaxiMap {
-    // Size of the map below
     public static int mapSize = 7;
-    // Number of taxis below
     public static int numTaxis;
-    // Arrays to store taxi information below
     public static int[] taxiX;
     public static int[] taxiY;
     private static Driver[] taxiDrivers;
@@ -23,11 +24,12 @@ public class TaxiMap {
     private static String[] taxiTypes;
     private static String[] licensePlates;
 
-    // Player's initial coordinates
-    static int PlayerX = User.getPlayerX();
-    static int PlayerY = User.getPlayerY();
+    static int PlayerX = getPlayerX();
+    static int PlayerY = getPlayerY();
 
-    //initialization - read taxi data from the taxidrivers csv file
+    // Use your custom ArrayList instead of the built-in ArrayList
+    private static MyArrayList<Driver> myTaxiDrivers = new MyArrayList<>();
+
     static {
         try {
             String csvFilePath = "TaxiDrivers.csv";
@@ -37,7 +39,6 @@ public class TaxiMap {
 
                 numTaxis = (int) reader.lines().count();
 
-                // Initialize arrays based on the number of taxis
                 taxiX = new int[numTaxis];
                 taxiY = new int[numTaxis];
                 taxiDrivers = new Driver[numTaxis];
@@ -45,7 +46,6 @@ public class TaxiMap {
                 taxiTypes = new String[numTaxis];
                 licensePlates = new String[numTaxis];
 
-                // Reset the reader to the beginning of the file
                 reader.close();
                 BufferedReader dataReader = new BufferedReader(new FileReader(csvFilePath));
                 dataReader.readLine();
@@ -56,17 +56,18 @@ public class TaxiMap {
                 while ((line = dataReader.readLine()) != null && index < numTaxis) {
                     String[] nextRecord = line.split(",");
 
-                    // Extract taxi information from the CSV file
                     String name = nextRecord[0].trim();
                     String licensePlate = nextRecord[1].trim();
                     int rating = Integer.parseInt(nextRecord[2].trim());
                     String carType = nextRecord[3].trim();
 
-                    //Create TaxiDriver objects and populate arrays
                     taxiDrivers[index] = new Driver(name, licensePlate, rating, carType);
                     taxiNames[index] = name;
                     taxiTypes[index] = carType;
                     licensePlates[index] = licensePlate;
+
+                    // Add the taxi driver to your custom ArrayList
+                    myTaxiDrivers.add(new Driver(name, licensePlate, rating, carType));
 
                     index++;
                 }
@@ -77,22 +78,10 @@ public class TaxiMap {
             e.printStackTrace();
         }
 
-        // Populate taxiNames and taxiTypes arrays based on TaxiDriver objects
+        // Populate taxiNames and taxiTypes arrays based on your custom ArrayList
         for (int i = 0; i < numTaxis; i++) {
-            taxiNames[i] = taxiDrivers[i].getName();
-            taxiTypes[i] = taxiDrivers[i].getCarType2();
-        }
-    }
-
-    // Method to print details of all taxi drivers - used for tests
-    public static void printAllTaxiDrivers() {
-        for (int i = 0; i < numTaxis; i++) {
-            System.out.println("Taxi Driver " + (i + 1) + " Details:");
-            System.out.println("Name: " + taxiDrivers[i].getName());
-            System.out.println("License Plate: " + taxiDrivers[i].getReg2());
-            System.out.println("Rating: " + taxiDrivers[i].getRating2());
-            System.out.println("Car Type: " + taxiDrivers[i].getCarType2());
-            System.out.println();
+            taxiNames[i] = myTaxiDrivers.get(i).getName();
+            taxiTypes[i] = myTaxiDrivers.get(i).getCarType2();
         }
     }
 
