@@ -3,6 +3,7 @@ package MapAndTaxis;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 import MapAndTaxis.MyArrayList;
 import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiDriving.*;
