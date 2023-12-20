@@ -3,10 +3,7 @@ package MapAndTaxis;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
-// Import your custom ArrayList class
 import MapAndTaxis.MyArrayList;
-
 import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiDriving.*;
 import static LocationHandling.PlayersDestination.getDestinationX;
@@ -15,8 +12,11 @@ import static MapAndTaxis.User.getPlayerX;
 import static MapAndTaxis.User.getPlayerY;
 
 public class TaxiMap {
+    //Size of the map
     public static int mapSize = 7;
+    // Number of taxis on the map
     public static int numTaxis;
+    // Arrays to store taxi positions and details
     public static int[] taxiX;
     public static int[] taxiY;
     private static Driver[] taxiDrivers;
@@ -24,21 +24,26 @@ public class TaxiMap {
     private static String[] taxiTypes;
     private static String[] licensePlates;
 
+    // Player's initial coordinates on the map
     static int PlayerX = getPlayerX();
     static int PlayerY = getPlayerY();
 
-    // Use your custom ArrayList instead of the built-in ArrayList
+    //Custom ArrayList to store taxi driver information
     private static MyArrayList<Driver> myTaxiDrivers = new MyArrayList<>();
 
+    //read taxi data from the CSV file
     static {
         try {
             String csvFilePath = "TaxiDrivers.csv";
 
+            // Read data from CSV file
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-                reader.readLine();
+                reader.readLine();  // Skip the header line
 
+                // Count the number of taxis
                 numTaxis = (int) reader.lines().count();
 
+                // Initialize taxi data based on the number of taxis
                 taxiX = new int[numTaxis];
                 taxiY = new int[numTaxis];
                 taxiDrivers = new Driver[numTaxis];
@@ -46,27 +51,31 @@ public class TaxiMap {
                 taxiTypes = new String[numTaxis];
                 licensePlates = new String[numTaxis];
 
+                // Reset the reader to the beginning of the file
                 reader.close();
                 BufferedReader dataReader = new BufferedReader(new FileReader(csvFilePath));
-                dataReader.readLine();
+                dataReader.readLine();  // Skip the header line
 
                 int index = 0;
 
                 String line;
+                // Read taxi data and populate arrays
                 while ((line = dataReader.readLine()) != null && index < numTaxis) {
                     String[] nextRecord = line.split(",");
 
+                    // Extract taxi information from the CSV file
                     String name = nextRecord[0].trim();
                     String licensePlate = nextRecord[1].trim();
                     int rating = Integer.parseInt(nextRecord[2].trim());
                     String carType = nextRecord[3].trim();
 
+                    // Create TaxiDriver objects and populate arrays
                     taxiDrivers[index] = new Driver(name, licensePlate, rating, carType);
                     taxiNames[index] = name;
                     taxiTypes[index] = carType;
                     licensePlates[index] = licensePlate;
 
-                    // Add the taxi driver to your custom ArrayList
+                    // Add the taxi driver to the custom ArrayList
                     myTaxiDrivers.add(new Driver(name, licensePlate, rating, carType));
 
                     index++;
@@ -78,7 +87,7 @@ public class TaxiMap {
             e.printStackTrace();
         }
 
-        // Populate taxiNames and taxiTypes arrays based on your custom ArrayList
+        //Populate taxiNames and taxiTypes arrays based on the custom ArrayList
         for (int i = 0; i < numTaxis; i++) {
             taxiNames[i] = myTaxiDrivers.get(i).getName();
             taxiTypes[i] = myTaxiDrivers.get(i).getCarType2();
