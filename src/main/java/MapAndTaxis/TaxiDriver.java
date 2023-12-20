@@ -7,7 +7,7 @@ public class TaxiDriver extends Person {
 
     // Constructor for the TaxiDriver class
     public TaxiDriver(String name, String reg, int rating, String carType) {
-        super(name);  // Using the constructor of the Person class
+        super(name);  //Using the constructor of the Person class
         TaxiDriver.reg = reg;
         TaxiDriver.rating = rating;
         TaxiDriver.carType = carType;
@@ -29,9 +29,7 @@ public class TaxiDriver extends Person {
         TaxiDriver.rating = rating;
     }
 
-    public static String getCarType() {
-        return carType;
-    }
+    public static String getCarType() {return carType;}
 
     public static void setCarType(String carType) {
         TaxiDriver.carType = carType;

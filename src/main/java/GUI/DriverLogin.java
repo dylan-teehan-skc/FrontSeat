@@ -28,10 +28,6 @@ public class DriverLogin {
 
     @FXML
     private void setStandardDriverType() {
-       // StandardTaxi runStandardTaxi = new StandardTaxi();
-      //  runStandardTaxi.taxiInfo();
-      //  runStandardTaxi.regNumber();
-
         setCarType("Standard");
         System.out.println("Taxi type set to Standard");
         openDriverDetails();
@@ -40,9 +36,6 @@ public class DriverLogin {
 
     @FXML
     private void setAccessibleDriverType() {
-    //    AccesableTaxi runAccesableTaxi = new AccesableTaxi();
-       // runAccesableTaxi.regNumber();
-     //   runAccesableTaxi.taxiInfo();
         setCarType("Accessible");
         System.out.println("Taxi type set to Accessible");
         openDriverDetails();
@@ -50,10 +43,6 @@ public class DriverLogin {
 
     @FXML
     private void setDeluxeDriverType() {
-    //    DeluxeTaxi runDeluxeTaxi = new  DeluxeTaxi();
-     //   runDeluxeTaxi.regNumber();
-      //  runDeluxeTaxi.taxiInfo();
-
         setCarType("Deluxe");
         System.out.println("Taxi type set to Deluxe");
         openDriverDetails();

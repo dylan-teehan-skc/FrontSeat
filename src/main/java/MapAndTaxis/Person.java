@@ -1,6 +1,7 @@
 package MapAndTaxis;
 
 public class Person {
+    //create person with attribute name
     private String name;
 
     public Person(String name) {
@@ -15,3 +16,4 @@ public class Person {
         this.name = name;
     }
 }
+

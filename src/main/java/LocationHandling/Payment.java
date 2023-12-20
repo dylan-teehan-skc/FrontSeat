@@ -2,16 +2,12 @@ package LocationHandling;
 
 import MapAndTaxis.TaxiDriving;
 
-
-
 public class Payment extends PassengerCount{
     private double currentBalance = 50;
     private double taxiFee;
 
     public void proccessPayment(TaxiDriving taxi) {
         PassengerCount countPassengers1 =  new PassengerCount();
-
-
 
         double distance = taxi.getDistance();
         String formattedDistance = String.format("%.2f", distance);

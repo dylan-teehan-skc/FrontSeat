@@ -17,7 +17,7 @@ public class AddTaxiDriverTest {
 
     @Before
     public void setUp() throws IOException {
-        mockPrintWriter = new PrintWriter(System.out);  // Use System.out for testing, or create a StringWriter
+        mockPrintWriter = new PrintWriter(System.out);
         mockFileWriter = new FileWriter("dummy.csv");  // Use a dummy file path or create a mock for FileWriter
     }
 
@@ -39,12 +39,8 @@ public class AddTaxiDriverTest {
         // Act
         addTaxiDriver.addTaxiDriver("NewDriver", "XX-YYY-123", "8", "Standard");
 
-        // Assert
-        // As we are using System.out for testing, we cannot verify the exact output.
-        // Instead, we can check if the PrintWriter has been flushed without errors.
         mockPrintWriter.flush();
         assertTrue(true);  // Dummy assertion to make the test pass if there are no exceptions
     }
 
-    // Add more test methods for other functionalities in AddTaxiDriver
 }

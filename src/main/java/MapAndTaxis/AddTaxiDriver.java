@@ -7,18 +7,18 @@ import java.io.PrintWriter;
 public abstract class AddTaxiDriver {
 
     public static void main(String[] args) {
-        // Example usage:
+        //Example usage:
         addTaxiDriver("NewDriver", "XX-YYY-123", "8", "Standard");
     }
 
     public static void addTaxiDriver(String name, String registrationNumber, String rating, String type) {
-        // New driver information
+        //To enter New driver information
         String[] newDriver = {name, registrationNumber, rating, type};
 
         // CSV file path
         String csvFilePath = "TaxiDrivers.csv";
 
-        // Open the CSV file in append mode
+        // Open the CSV file so we can append to it
         try (PrintWriter csvWriter = new PrintWriter(new FileWriter(csvFilePath, true))) {
             // Write the new driver information to the CSV file
             csvWriter.println(String.join(",", newDriver));

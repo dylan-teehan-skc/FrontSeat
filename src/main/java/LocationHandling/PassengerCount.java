@@ -2,7 +2,6 @@ package LocationHandling;
 
 import java.util.Scanner;
 
-
 public class PassengerCount {
     private static int passengers;
     static int passengersnumber;

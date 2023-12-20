@@ -7,20 +7,27 @@ import java.util.Random;
 
 import static MapAndTaxis.Taxi.getTaxitype;
 import static MapAndTaxis.TaxiDriving.*;
-import static MapAndTaxis.User.*;
 import static LocationHandling.PlayersDestination.getDestinationX;
 import static LocationHandling.PlayersDestination.getDestinationY;
 
 public class TaxiMap {
+    // Size of the map below
     public static int mapSize = 7;
+    // Number of taxis below
     public static int numTaxis;
+    // Arrays to store taxi information below
     public static int[] taxiX;
     public static int[] taxiY;
-    private static TaxiDriver2[] taxiDrivers2;
+    private static Driver[] taxiDrivers;
     private static String[] taxiNames;
     private static String[] taxiTypes;
     private static String[] licensePlates;
 
+    // Player's initial coordinates
+    static int PlayerX = User.getPlayerX();
+    static int PlayerY = User.getPlayerY();
+
+    //initialization - read taxi data from the taxidrivers csv file
     static {
         try {
             String csvFilePath = "TaxiDrivers.csv";
@@ -30,9 +37,10 @@ public class TaxiMap {
 
                 numTaxis = (int) reader.lines().count();
 
+                // Initialize arrays based on the number of taxis
                 taxiX = new int[numTaxis];
                 taxiY = new int[numTaxis];
-                taxiDrivers2 = new TaxiDriver2[numTaxis];
+                taxiDrivers = new Driver[numTaxis];
                 taxiNames = new String[numTaxis];
                 taxiTypes = new String[numTaxis];
                 licensePlates = new String[numTaxis];
@@ -48,12 +56,14 @@ public class TaxiMap {
                 while ((line = dataReader.readLine()) != null && index < numTaxis) {
                     String[] nextRecord = line.split(",");
 
+                    // Extract taxi information from the CSV file
                     String name = nextRecord[0].trim();
                     String licensePlate = nextRecord[1].trim();
                     int rating = Integer.parseInt(nextRecord[2].trim());
                     String carType = nextRecord[3].trim();
 
-                    taxiDrivers2[index] = new TaxiDriver2(name, licensePlate, rating, carType);
+                    //Create TaxiDriver objects and populate arrays
+                    taxiDrivers[index] = new Driver(name, licensePlate, rating, carType);
                     taxiNames[index] = name;
                     taxiTypes[index] = carType;
                     licensePlates[index] = licensePlate;
@@ -67,53 +77,56 @@ public class TaxiMap {
             e.printStackTrace();
         }
 
+        // Populate taxiNames and taxiTypes arrays based on TaxiDriver objects
         for (int i = 0; i < numTaxis; i++) {
-            taxiNames[i] = taxiDrivers2[i].getName();
-            taxiTypes[i] = taxiDrivers2[i].getCarType2();
+            taxiNames[i] = taxiDrivers[i].getName();
+            taxiTypes[i] = taxiDrivers[i].getCarType2();
         }
     }
 
+    // Method to print details of all taxi drivers - used for tests
     public static void printAllTaxiDrivers() {
         for (int i = 0; i < numTaxis; i++) {
             System.out.println("Taxi Driver " + (i + 1) + " Details:");
-            System.out.println("Name: " + taxiDrivers2[i].getName());
-            System.out.println("License Plate: " + taxiDrivers2[i].getReg2());
-            System.out.println("Rating: " + taxiDrivers2[i].getRating2());
-            System.out.println("Car Type: " + taxiDrivers2[i].getCarType2());
+            System.out.println("Name: " + taxiDrivers[i].getName());
+            System.out.println("License Plate: " + taxiDrivers[i].getReg2());
+            System.out.println("Rating: " + taxiDrivers[i].getRating2());
+            System.out.println("Car Type: " + taxiDrivers[i].getCarType2());
             System.out.println();
         }
     }
 
-
+    //create the map
     public static String[][] map = new String[mapSize][mapSize];
 
+    //Method to run the taxi simulation on the map
     public static void RunMap() throws InterruptedException, IOException {
         initialiseMap();
         moveTaxis();
-        taxiGoToPlayer(getTaxitype());
-        taxiGoToDestination(getDestinationX(), getDestinationY(), getTaxitype());
+        taxiGoToPlayer(getTaxitype()); // get which taxi the user chose and only that
+        taxiGoToDestination(getDestinationX(), getDestinationY(), getTaxitype()); //after user is collected go to destination
     }
 
+    //Method to initialize the map with player and taxi positions
     public static void initialiseMap() {
         // Initialize the map with empty strings
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 map[i][j] = "-";
-
             }
         }
 
-        // Place the player on the map
-        map[getPlayerX()][getPlayerY()] = "P";
+        // Place the player on the map - chosen by player
+        map[PlayerX][PlayerY] = "P";
 
-        // Initialize taxi positions
+        // Initialize taxi positions randomly
         Random random = new Random();
         for (int i = 0; i < numTaxis; i++) {
             int x, y;
             do {
                 x = random.nextInt(mapSize);
                 y = random.nextInt(mapSize);
-            } while (map[x][y].equals("T") || map[x][y].equals("P") || (x == getPlayerX() && y == getPlayerY())); // Ensure a taxi doesn't overlap with player or other taxis
+            } while (map[x][y].equals("T") || map[x][y].equals("P") || (x == PlayerX && y == PlayerY)); // Ensure a taxi doesn't overlap with player or other taxis
 
             taxiX[i] = x;
             taxiY[i] = y;
@@ -121,10 +134,11 @@ public class TaxiMap {
         }
     }
 
+    // Method to simulate taxi movement on the map
     public static void moveTaxis() throws InterruptedException {
         Random random = new Random();
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             // Clear the console (print empty lines)
             clearConsole();
 
@@ -161,28 +175,26 @@ public class TaxiMap {
                     newX = Math.max(0, Math.min(newX, mapSize - 1));
                     newY = Math.max(0, Math.min(newY, mapSize - 1));
 
-                } while (newX == taxiX[j] && newY == taxiY[j]);  // Ensure the taxi moves to a new position
+                } while (newX == taxiX[j] && newY == taxiY[j]);  //Ensure the taxi moves to a new position
 
                 taxiX[j] = newX;
                 taxiY[j] = newY;
 
                 // Update the new position
                 map[taxiX[j]][taxiY[j]] = "T";
-
-                // Check for nearby taxis
-                //checkIfTaxiArrived(j);
             }
 
             // Update the player's position
-            map[getPlayerX()][getPlayerY()] = "P";
+            map[PlayerX][PlayerY] = "P";
 
             printMap(map);
 
-            // Sleep for 2 seconds
+            //Sleep for 2 seconds
             Thread.sleep(2000);
         }
     }
 
+    // Method to print the current state of the map
     public static void printMap(String[][] map) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -190,16 +202,10 @@ public class TaxiMap {
             }
             System.out.println();
         }
-
-        // Print taxi names and coordinates
-        for (int k = 0; k < numTaxis; k++) {
-            //System.out.println(taxiNames[k] + " is at coordinates [" + taxiX[k] + "," + taxiY[k] + "]");
-        }
-
         System.out.println();
     }
 
-    // Clear the console (print empty lines)
+    // Method to clear the console (print empty lines)
     public static void clearConsole() {
         for (int i = 0; i < 20; i++) {
             System.out.println(); // Print empty lines
@@ -207,12 +213,13 @@ public class TaxiMap {
     }
 
 
+
     public static boolean checkIfTaxiArrived(int taxiIndex) {
         int taxiXCoord = taxiX[taxiIndex];
         int taxiYCoord = taxiY[taxiIndex];
 
-        int playerXCoord = getPlayerX();
-        int playerYCoord = getPlayerY();
+        int playerXCoord = PlayerX;
+        int playerYCoord = PlayerY;
 
         // Check if the player is in the same block as the taxi
         boolean taxiHere = (taxiXCoord == playerXCoord) && (taxiYCoord == playerYCoord);
@@ -227,13 +234,13 @@ public class TaxiMap {
             return false;  // Taxi hasn't arrived
         }
     }
-
+    // Method to find the closest available taxi of the specified type within a given radius
     public static int findClosestTaxi(String requiredTaxiType) {
-        int playerXCoord = getPlayerX();
-        int playerYCoord = getPlayerY();
+        int playerXCoord = PlayerX;
+        int playerYCoord = PlayerY;
 
         // Set the radius for proximity check
-        int radius = 9;
+        int radius = 9; //set to 9 to find one now but can easily be changed to smaller radius
 
         for (int r = 1; r <= radius; r++) {
             for (int x = playerXCoord - r; x <= playerXCoord + r; x++) {
@@ -252,19 +259,17 @@ public class TaxiMap {
             }
         }
 
+        // Print a message if no available taxis of the specified type are found in the vicinity
         System.out.println("No available taxis of type " + requiredTaxiType + " in the vicinity. Please wait until one is available.");
         return -1;
     }
 
-
-
-
-    // Add this method to check if the coordinates are within the valid map bounds
+    //Method to check if the coordinates are within the valid map bounds
     public static boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
     }
 
-
+    // Method to find the index of the taxi at the specified coordinates
     private static int findTaxiIndexAtCoordinates(int x, int y) {
         for (int i = 0; i < numTaxis; i++) {
             if (taxiX[i] == x && taxiY[i] == y) {
@@ -275,3 +280,4 @@ public class TaxiMap {
     }
 
 }
+
