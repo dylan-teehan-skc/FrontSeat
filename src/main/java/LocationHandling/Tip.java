@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 
 public class Tip extends Payment {
+
+
     private int tipBalance;
 
 
@@ -15,10 +17,10 @@ public class Tip extends Payment {
 
         do {
             if (tip == 1) {
-                System.out.println("Please enter how much you would like to tip");
-                int tipAmount = scanner.nextInt();
+                System.out.println("Please enter how much you would like to tip"); // prompts user to leave tip
+                int tipAmount = scanner.nextInt(); //sets tipAmount to next int entered
                 if (tipAmount > 10) {
-                    System.out.println("You dont have enough money");
+                    System.out.println("You dont have enough money"); // checks if they have enough money
                 } else {
                     System.out.println("You tipped " + tipAmount + " euro" + "\n Have a good day");
                     System.exit(0);
@@ -31,6 +33,6 @@ public class Tip extends Payment {
             } else {
                 System.out.println("invalid input");
             }
-        } while (tip < 1 || tip > 2);
+        } while (tip < 1 || tip > 2); //repeat the loop
     }
 }

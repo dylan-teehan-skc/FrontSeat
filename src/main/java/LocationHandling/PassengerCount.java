@@ -9,7 +9,7 @@ public class PassengerCount {
     public void passengerCount(int passengers) {
         this.passengers = passengers;
     }
-
+// constructor to set the number of passengers when an instance is created
     public static int getPassengers() {
         return passengers;
     }
@@ -18,7 +18,7 @@ public class PassengerCount {
         PassengerCount.passengersnumber = passengers;
     }
 
-    public void Passengers() {
+    public void Passengers() { //method to handle passenger input
 
         Scanner scanner = new Scanner(System.in);
         // previous functionality you had done is now implemented into gui

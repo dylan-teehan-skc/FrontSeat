@@ -12,11 +12,11 @@ public class Location  {
 
     public void RunLocation() {
 
-        System.out.println("A taxi is coming to you now at your location");
+        System.out.println("A taxi is coming to you now at your location"); //prints to command line
         // Sleep for 2 seconds
         try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
+            Thread.sleep(2000); //pauses for 2 seconds
+        } catch (InterruptedException e) {  //if theres exception catch and throw
             throw new RuntimeException(e);
         }
         try {
